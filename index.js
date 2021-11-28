@@ -1,6 +1,9 @@
 const { chromium } = require('playwright');
 
-const MOVIE_TARGET = "Spider-Man: Sin Camino a Casa";
+//const MOVIE_TARGET = "Spider-Man: Sin Camino a Casa";
+
+const MOVIE_TARGET = "El Alpinista";
+
 
 const movieTeathers = [
 
@@ -25,6 +28,12 @@ const movieTeathers = [
 
 ];
 
+
+const accountSid = 'AC6c8c65bc202dcb4ad42dcd12751c144e'; 
+const authToken = '9431ea54394a11685e6c78b356c7ca49'; 
+const client = require('twilio')(accountSid, authToken); 
+ 
+
 (async () => {
 
     const checkPreventa = (movies, target) => movies.includes(target)
@@ -40,7 +49,26 @@ const movieTeathers = [
     console.log(`Searching information from ${name}`);
     const movies = await movieTheater.gettingFilm(page);
     const isAvailable = checkPreventa(movies, MOVIE_TARGET); 
-    console.log(isAvailable ? "Ya esta disponible" : "Aun no esta disponible sigue esperando");
+    const isAvailableMessage = isAvailable ? `Ya esta disponible la pelicula de ${MOVIE_TARGET} 🕷 en ${url}` : 
+                            `Aun no esta disponible la pelicula de ${MOVIE_TARGET} sigue esperando...`
+    console.log(isAvailableMessage);
+
+    if(isAvailable){
+        await sendMessage(isAvailableMessage)
+    }
+   
 }
   await browser.close();
-})();  
+})();
+
+
+
+async function sendMessage(message){
+
+    const newMessage = await client.messages.create({
+        body: message,
+        from: 'whatsapp:+14155238886',       
+        to: 'whatsapp:+5216862230799' 
+    })
+
+}

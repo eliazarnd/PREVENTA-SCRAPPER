@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "playwright": "^1.16.3"
+  },
+  "dependencies": {
+    "twilio": "^3.71.2"
   }
 }

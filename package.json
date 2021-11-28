@@ -1,0 +1,15 @@
+{
+  "name": "preventascrpapper",
+  "version": "1.0.0",
+  "description": "This is an cli app to get information about prevent tickets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Eliazar",
+  "license": "ISC",
+  "devDependencies": {
+    "playwright": "^1.16.3"
+  }
+}
